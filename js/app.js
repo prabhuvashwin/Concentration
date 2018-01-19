@@ -51,27 +51,28 @@ function resetTimer(t) {
  * the number of moves.
  */
 function setRatings(numberOfMoves) {
-  let rating = 3;
+  let rating = 0;
 
-  if (numberOfMoves > maxNumberOfMovesForOneStar) {
-    rating = 0;
-    starRating[0].classList = 'fa fa-star-o';
-    starRating[1].classList = 'fa fa-star-o';
+  if (numberOfMoves <= maxNumberOfMovesForThreeStars) {
+    rating = 3;
+    starRating[0].classList = 'fa fa-star';
+    starRating[1].classList = 'fa fa-star';
+    starRating[2].classList = 'fa fa-star';
+  } else if (numberOfMoves > maxNumberOfMovesForThreeStars && numberOfMoves <= maxNumberOfMovesForTwoStars) {
+    rating = 2;
+    starRating[0].classList = 'fa fa-star';
+    starRating[1].classList = 'fa fa-star';
     starRating[2].classList = 'fa fa-star-o';
   } else if (numberOfMoves > maxNumberOfMovesForTwoStars && numberOfMoves <= maxNumberOfMovesForOneStar) {
     rating = 1;
     starRating[0].classList = 'fa fa-star';
     starRating[1].classList = 'fa fa-star-o';
     starRating[2].classList = 'fa fa-star-o';
-  } else if (numberOfMoves > maxNumberOfMovesForThreeStars && numberOfMoves <= maxNumberOfMovesForTwoStars) {
-    rating = 2;
-    starRating[0].classList = 'fa fa-star';
-    starRating[1].classList = 'fa fa-star';
-    starRating[2].classList = 'fa fa-star-o';
   } else {
-    starRating[0].classList = 'fa fa-star';
-    starRating[1].classList = 'fa fa-star';
-    starRating[2].classList = 'fa fa-star';
+    rating = 0;
+    starRating[0].classList = 'fa fa-star-o';
+    starRating[1].classList = 'fa fa-star-o';
+    starRating[2].classList = 'fa fa-star-o';
   }
 
   return rating;
@@ -113,9 +114,9 @@ function initializeGame() {
   numberOfMoves = 0;
   numberOfMatches = 0;
   moves.textContent = '0';
-  starRating[0].classList = 'fa fa-star-o';
-  starRating[1].classList = 'fa fa-star-o';
-  starRating[2].classList = 'fa fa-star-o';
+  starRating[0].classList = 'fa fa-star';
+  starRating[1].classList = 'fa fa-star';
+  starRating[2].classList = 'fa fa-star';
 
   for (let i = 0; i < shuffledCards.length; i++) {
     let node1 = document.createElement('l1');
@@ -147,7 +148,7 @@ function initializeGame() {
  */
  function clickEvent(evt) {
    let card = evt.currentTarget;
-
+   let finalRating;
    if (card.classList.contains('show') || card.classList.contains('match')) {
      return true;
    }
@@ -192,13 +193,13 @@ function initializeGame() {
 
      numberOfCardsOpened = [];
      numberOfMoves++;
+     finalRating = setRatings(numberOfMoves);
      moves.innerText = numberOfMoves;
    }
 
    // End game if all cards are matched
    if (totalNumberOfMatches === numberOfMatches) {
-     let finalRating = setRatings(numberOfMoves);
-     let message = `Number of moves: ${numberOfMoves}. ${finalRating} star rating. `;
+     let message = `Number of moves: ${numberOfMoves}. Time taken: ${secondsElapsed} seconds. ${finalRating} star rating. `;
      switch (finalRating) {
        case 0:
          message += `Try harder.`;
