@@ -1,5 +1,5 @@
 # Concentration - Memory Game Project
-This game is a browser based card matching game also known as Concentration. It is built using HTML5, CSS, and JavaScript. This project is developed as a part of Udacity's Front End Development Nanodegree program. The skeleton code with the static HTML and CSS code is available at [here](https://github.com/udacity/fend-project-memory-game)
+This game is a browser based card matching game also known as Concentration. It is built using HTML5, CSS, and JavaScript. This project is developed as a part of Udacity's Front End Development Nanodegree program. The skeleton code with the static HTML and CSS code is available [here](https://github.com/udacity/fend-project-memory-game)
 
 ## How the game works
   - The game board consists of sixteen "cards" arranged in a grid.
